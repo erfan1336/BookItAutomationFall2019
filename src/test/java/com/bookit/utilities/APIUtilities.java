@@ -15,7 +15,7 @@ public class APIUtilities {
      * 1. static block
      * 2. instance block
      * 3. constructor
-     * 4. method and
+     * 4. method
      */
     static {
         baseURI = Environment.BASE_URI;
