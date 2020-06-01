@@ -31,6 +31,7 @@ public class APIUtilities {
                                     queryParam("password",Environment.LEADER_PASSWORD).
                             when().
                                     get("/sign");
+
         response.then().log().ifError(); // if request failed, print response information
         String token = response.jsonPath().getString("accessToken");
         System.out.println("TOKEN :: " + token);
