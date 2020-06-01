@@ -9,6 +9,14 @@ import static io.restassured.RestAssured.*;
 public class APIUtilities {
 
 
+    /**
+     * static block used to initialize static variables
+     * has highest priority in the execution order:
+     * 1. static block
+     * 2. instance block
+     * 3. constructor
+     * 4. method
+     */
     static {
         baseURI = Environment.BASE_URI;
     }
