@@ -1,5 +1,6 @@
 package com.bookit.step_definitions;
 
+import com.bookit.pojos.Room;
 import com.bookit.utilities.APIUtilities;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -8,11 +9,14 @@ import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
 import org.junit.Assert;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 public class APIStepDefinitions {
 
@@ -59,13 +63,18 @@ public class APIStepDefinitions {
 
     @Then("user should be able to see all room names")
     public void user_should_be_able_to_see_all_room_names() {
-
+        List<Room> rooms = response.jsonPath().getList("",Room.class);
+//      rooms.forEach(room -> System.out.println(room.getName()));
+        for (Room room: rooms){
+            System.out.println(room.getName());
+        }
     }
-
 
     @Then("user payload contains following room names:")
     public void user_payload_contains_following_room_names(List<String> dataTable) {
-
+        List<String> roomNames = response.jsonPath().getList("name");
+        Assert.assertTrue(roomNames.containsAll(dataTable));
+        MatcherAssert.assertThat(roomNames,hasItem(in(dataTable)));
     }
 
 }
